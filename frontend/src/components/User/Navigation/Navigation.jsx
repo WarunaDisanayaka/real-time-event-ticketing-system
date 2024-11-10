@@ -9,31 +9,31 @@ const Navigation = () => {
 
     const menuItems = [
         {
-            label: "Projects",
-            key: "projects",
+            label: "Evenets",
+            key: "evenets",
         },
-        {
-            label: "Dashboard",
-            key: "dashboard",
-        },
-        {
-            label: "Products",
-            key: "SubMenu",
-            children: [
-                {
-                    label: "Ant Design System",
-                    key: "product:1",
-                },
-                {
-                    label: "Ant Design Charts",
-                    key: "product:2",
-                },
-            ],
-        },
-        {
-            label: "Settings",
-            key: "alipay",
-        },
+        // {
+        //     label: "Dashboard",
+        //     key: "dashboard",
+        // },
+        // {
+        //     label: "Products",
+        //     key: "SubMenu",
+        //     children: [
+        //         {
+        //             label: "Ant Design System",
+        //             key: "product:1",
+        //         },
+        //         {
+        //             label: "Ant Design Charts",
+        //             key: "product:2",
+        //         },
+        //     ],
+        // },
+        // {
+        //     label: "Settings",
+        //     key: "alipay",
+        // },
     ];
 
     const [current, setCurrent] = useState("projects");
