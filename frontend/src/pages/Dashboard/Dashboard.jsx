@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import LogoutModal from "../../components/LogoutModal";
-import SideBar from "../../components/SideBar";
-import TopBar from "../../components/TopBar";
+import LogoutModal from "../../components/Admin/LogoutModal";
+import SideBar from "../../components/Admin/SideBar";
+import TopBar from "../../components/Admin/TopBar";
 import "./Dashboard.css";
 
 function Dashboard() {
