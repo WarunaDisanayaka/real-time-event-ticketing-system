@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const authRoutes = require("./src/routes/authRoutes");
+const eventRoutes = require("./src/routes/eventRoutes");
+const ticketRoutes = require("./src/routes/ticketRoutes");
 
 dotenv.config();
 const app = express();
@@ -11,6 +13,10 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+
+app.use("/api/event", eventRoutes);
+
+app.use("/api", ticketRoutes);
 
 // Server
 const PORT = process.env.PORT || 3000;
