@@ -16,7 +16,7 @@ app.use("/api/auth", authRoutes);
 
 app.use("/api/event", eventRoutes);
 
-app.use("/api", ticketRoutes);
+app.use("/api/ticket", ticketRoutes);
 
 // Server
 const PORT = process.env.PORT || 3000;
