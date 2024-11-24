@@ -9,8 +9,8 @@ const Navigation = () => {
 
     const menuItems = [
         {
-            label: "Evenets",
-            key: "evenets",
+            label: "Events",
+            key: "events",
         },
         // {
         //     label: "Dashboard",

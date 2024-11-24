@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Home from './pages/User/Home/Home';
 import Login from './pages/User/Login/Login';
 import SignUp from './pages/User/SignUp/SignUp';
+import TicketDetails from './pages/User/TicketDetails/TicketDetails';
 import AllEvents from './pages/Vendor/Dashboard/AllEvents/AllEvents';
 import CreateEvent from './pages/Vendor/Dashboard/CreateEvent/CreateEvent';
 import VendorHome from './pages/Vendor/Dashboard/Home/VendorHome';
@@ -23,6 +24,7 @@ const AppRoutes = () => {
                     <Route path="/vendor-home" element={<VendorHome />} />
                     <Route path="/create-event" element={<CreateEvent />} />
                     <Route path="/all-events" element={<AllEvents />} />
+                    <Route path="/ticket-card-details" element={<TicketDetails />} />
 
                 </Routes>
             </Router>
