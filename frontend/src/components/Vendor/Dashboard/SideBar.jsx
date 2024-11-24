@@ -30,7 +30,7 @@ const SideBar = () => {
 
             {/*  <!-- Nav Item - Dashboard --> */}
             <li className="nav-item active">
-                <a className="nav-link" href="/">
+                <a className="nav-link" href="/vendor-home">
                     <i className="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -44,7 +44,7 @@ const SideBar = () => {
                 <div id="collapseFour" className="collapse" aria-labelledby="collapseThree" data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
                         <a className="collapse-item" href="/create-event">Create Event</a>
-                        <a className="collapse-item" href="/all-certificate-requests">Manage Events</a>
+                        <a className="collapse-item" href="/all-events">Manage Events</a>
 
                     </div>
                 </div>
