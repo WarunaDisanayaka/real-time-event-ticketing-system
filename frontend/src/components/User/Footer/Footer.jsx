@@ -40,6 +40,14 @@ const Footer = () => {
                         <a href="https://linkedin.com" style={styles.icon} aria-label="LinkedIn">🔗</a>
                     </div>
                 </div>
+
+                <div style={styles.section}>
+                    <h4 style={styles.heading}>Become a vendor</h4>
+                    <ul style={styles.list}>
+                        <li><a href="/vendor-sign-up" style={styles.link}>Register </a></li>
+
+                    </ul>
+                </div>
             </div>
 
             {/* Footer Bottom */}
