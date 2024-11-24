@@ -1,15 +1,15 @@
 import React from 'react';
 import Footer from '../../../components/User/Footer/Footer';
 import Navigation from '../../../components/User/Navigation/Navigation';
-import SignUpForm from '../../../components/User/SignUpForm/SignUpForm';
+import VendorSignUpForm from '../../../components/Vendor/SignUpForm/VendorSignUpForm';
 
-const SignUp = () => {
+const VendorSignUp = () => {
     return (
         <div style={styles.pageContainer}>
             <Navigation />
             <div style={styles.contentWrap}>
                 <div style={styles.formContainer}>
-                    <SignUpForm />
+                    <VendorSignUpForm />
                 </div>
             </div>
             <Footer />
@@ -35,4 +35,4 @@ const styles = {
     },
 };
 
-export default SignUp;
+export default VendorSignUp;
