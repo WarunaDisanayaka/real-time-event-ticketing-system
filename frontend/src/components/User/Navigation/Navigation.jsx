@@ -97,8 +97,8 @@ const Navigation = () => {
                     />
                 </div>
                 <Space>
-                    {screens.md ? <Button type="text">Log in</Button> : ""}
-                    <Button type="primary">Sign up</Button>
+                    {screens.md ? <Button type="text" href="/login">Log in</Button> : ""}
+                    <Button type="primary" href="/sign-up">Sign up</Button>
                 </Space>
             </div>
         </nav>

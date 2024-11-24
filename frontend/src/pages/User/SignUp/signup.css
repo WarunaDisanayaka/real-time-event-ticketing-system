@@ -1,0 +1,32 @@
+/* Container to take up full height of the screen */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Flexbox to center the form horizontally and vertically */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0 20px; /* Ensure some space on the sides */
+}
+
+/* Styling for the form itself */
+.signup-form {
+   
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .signup-form {
+        max-width: 100%; /* Make form take full width on smaller screens */
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+}
