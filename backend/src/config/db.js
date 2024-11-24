@@ -8,4 +8,4 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-module.exports = pool.promise(); // Use promise-based queries
+module.exports = pool.promise();

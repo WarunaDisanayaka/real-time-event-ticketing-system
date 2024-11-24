@@ -1,5 +1,6 @@
 const { Worker } = require("worker_threads");
 const db = require("../config/db");
+const { releaseTickets } = require("../utils/ticketReleaseWorker");
 
 let workers = {};
 
@@ -28,12 +29,18 @@ exports.startTicketRelease = async (req, res) => {
       ]);
 
     // Start the worker thread
-    const worker = new Worker("./utils/ticketReleaseWorker.js", {
-      workerData: {
-        eventId,
-        releaseRate: event[0].ticketReleaseRate,
-      },
-    });
+    console.log("Event ID:", eventId);
+    console.log("Release Rate:", event[0].ticketReleaseRate);
+
+    const worker = new Worker(
+      require.resolve("../utils/ticketReleaseWorker.js"),
+      {
+        workerData: {
+          eventId,
+          releaseRate: event[0].ticketReleaseRate,
+        },
+      }
+    );
 
     workers[eventId] = worker;
 

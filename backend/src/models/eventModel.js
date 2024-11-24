@@ -17,12 +17,9 @@ const Event = {
       eventData.startDate,
     ];
 
-    return new Promise((resolve, reject) => {
-      db.query(sql, values, (err, result) => {
-        if (err) return reject(err);
-        resolve(result);
-      });
-    });
+    // Use the `execute` method of `mysql2` for prepared statements.
+    const [result] = await db.execute(sql, values);
+    return result;
   },
 };
 
