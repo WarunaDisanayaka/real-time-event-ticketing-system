@@ -1,21 +1,17 @@
 import React from 'react';
 import Footer from '../../../components/User/Footer/Footer';
-import HeroSection from '../../../components/User/HeroSection/HeroSection';
+import LoginForm from '../../../components/User/LoginForm/LoginForm';
 import Navigation from '../../../components/User/Navigation/Navigation';
-import TicketCard from '../../../components/User/TicketCard/TicketCard';
 
-const Home = () => {
+const Login = () => {
     return (
         <div style={styles.pageContainer}>
             <Navigation />
             <div style={styles.contentWrap}>
-                <HeroSection />
+                <div style={styles.formContainer}>
+                    <LoginForm />
+                </div>
             </div>
-            <div style={styles.ticketCardContainer}>
-                <TicketCard />
-
-            </div>
-
             <Footer />
         </div>
     );
@@ -30,14 +26,13 @@ const styles = {
     contentWrap: {
         flex: 1, // This makes the main content area expand to fill space
     },
-    ticketCardContainer: {
+    formContainer: {
         display: 'flex',
-        flexDirection: 'row', // Stack TicketCards vertically
-        gap: '20px', // Space between each TicketCard
-        marginTop: '20px',
-        justifyContent: 'center', // Center TicketCard horizontally
-
+        justifyContent: 'center', // Centers the form container
+        alignItems: 'center', // Centers the form vertically within the container
+        flexDirection: 'column',
+        padding: '20px',
     },
 };
 
-export default Home;
+export default Login;
