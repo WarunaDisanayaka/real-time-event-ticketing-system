@@ -3,8 +3,9 @@ import Footer from '../../../components/User/Footer/Footer';
 import HeroSection from '../../../components/User/HeroSection/HeroSection';
 import Navigation from '../../../components/User/Navigation/Navigation';
 import TicketCard from '../../../components/User/TicketCard/TicketCard';
+import TicketCardDetails from '../../../components/User/TicketCardDetails/TicketCardDetails';
 
-const Home = () => {
+const TicketDetails = () => {
     return (
         <div style={styles.pageContainer}>
             <Navigation />
@@ -12,12 +13,7 @@ const Home = () => {
                 <HeroSection />
             </div>
             <div style={styles.ticketCardContainer}>
-                <TicketCard />
-                <TicketCard />
-                <TicketCard />
-                <TicketCard />
-                <TicketCard />
-
+                <TicketCardDetails />
 
             </div>
 
@@ -45,4 +41,4 @@ const styles = {
     },
 };
 
-export default Home;
+export default TicketDetails;

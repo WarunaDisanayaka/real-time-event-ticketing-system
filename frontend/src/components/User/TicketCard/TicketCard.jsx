@@ -20,7 +20,7 @@ const TicketCard = () => {
                 <p><strong>Price:</strong> $50</p>
 
                 {/* Buy Button */}
-                <Button type="primary" style={styles.buyButton}>
+                <Button type="primary" href='/ticket-card-details' style={styles.buyButton}>
                     Buy Ticket
                 </Button>
             </div>
