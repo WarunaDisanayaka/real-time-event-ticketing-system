@@ -78,8 +78,9 @@ const LoginForm = () => (
 
         {/* Register link */}
         <p>
-            Don't have an account? <Link to="/sign-up">Sign up here</Link>
+            Don't have an account? <a href="/sign-up">Sign up here</a>
         </p>
+
     </div>
 );
 

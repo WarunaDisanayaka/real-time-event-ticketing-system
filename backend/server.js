@@ -4,9 +4,11 @@ const dotenv = require("dotenv");
 const authRoutes = require("./src/routes/authRoutes");
 const eventRoutes = require("./src/routes/eventRoutes");
 const ticketRoutes = require("./src/routes/ticketRoutes");
+const cors = require("cors");
 
 dotenv.config();
 const app = express();
+app.use(cors());
 
 // Middleware
 app.use(bodyParser.json());
