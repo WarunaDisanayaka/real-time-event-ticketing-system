@@ -13,9 +13,10 @@ app.use(cors());
 // Middleware
 app.use(bodyParser.json());
 
-// Routes
+// Routes for authentication
 app.use("/api/auth", authRoutes);
 
+// Routes for events management
 app.use("/api/event", eventRoutes);
 
 app.use("/api/ticket", ticketRoutes);
