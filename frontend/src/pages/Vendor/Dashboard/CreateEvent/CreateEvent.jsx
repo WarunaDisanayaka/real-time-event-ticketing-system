@@ -144,11 +144,6 @@ const CreateEvent = () => {
                                 </div>
                             </div>
                         </div>
-                        <footer className="sticky-footer bg-white">
-                            <div className="container my-auto">
-                                <div className="copyright text-center my-auto"></div>
-                            </div>
-                        </footer>
                     </div>
                 </div>
                 <a className="scroll-to-top rounded" href="#page-top">
