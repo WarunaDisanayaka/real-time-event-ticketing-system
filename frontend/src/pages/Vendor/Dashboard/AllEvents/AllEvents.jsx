@@ -24,6 +24,7 @@ const AllEvents = () => {
                 const data = await response.json();
                 console.log(data); // Log the response to ensure it contains the expected data
                 setEvents(data || []); // Directly use `data` if it's an array
+                setError(null); // Clear error if the fetch is successful
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -34,7 +35,6 @@ const AllEvents = () => {
         fetchEvents();
     }, [vendorId]);
 
-
     // Toggle event active status
     const toggleEventStatus = (id) => {
         setEvents((prevEvents) =>
@@ -44,27 +44,6 @@ const AllEvents = () => {
         );
     };
 
-    // Loading state
-    if (loading) {
-        return (
-            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
-                <div>Loading events...</div>
-            </div>
-        );
-    }
-
-    // Error state
-    if (error) {
-        return (
-            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
-                <div className="alert alert-danger" role="alert">
-                    {error}
-                </div>
-            </div>
-        );
-    }
-
-    // Main render
     return (
         <div>
             <body id="page-top">
@@ -77,8 +56,20 @@ const AllEvents = () => {
                                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 className="h3 mb-0 text-gray-800">All Events</h1>
                                 </div>
+
+                                {/* Display error message if there's an error */}
+                                {error && (
+                                    <div className="alert alert-danger" role="alert">
+                                        {error}
+                                    </div>
+                                )}
+
                                 <div className="row">
-                                    {events.length > 0 ? (
+                                    {loading ? (
+                                        <div className="col-12 d-flex justify-content-center">
+                                            <div>Loading events...</div>
+                                        </div>
+                                    ) : events.length > 0 ? (
                                         events.map((event) => (
                                             <div key={event.id} className="col-lg-4 col-md-6 mb-4">
                                                 <div className="card shadow h-100 d-flex flex-column">
@@ -119,7 +110,6 @@ const AllEvents = () => {
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 <a className="scroll-to-top rounded" href="#page-top">
