@@ -1,6 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LogoutModal = () => {
+    const navigate = useNavigate(); // React Router's navigation hook
+
+    const handleLogout = () => {
+        // Clear localStorage (or any other storage used for authentication)
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+
+        // Redirect to the login page
+        window.location.href = '/login';
+    };
+
     return (
         <div className="modal fade" id="logoutModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
@@ -30,14 +42,17 @@ const LogoutModal = () => {
                         >
                             Cancel
                         </button>
-                        <a className="btn btn-primary" href="/login">
+                        <button
+                            className="btn btn-primary"
+                            onClick={handleLogout} // Call the logout handler
+                        >
                             Logout
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default LogoutModal
+export default LogoutModal;
