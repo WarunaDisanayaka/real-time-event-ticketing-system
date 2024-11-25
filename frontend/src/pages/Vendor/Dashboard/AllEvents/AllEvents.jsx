@@ -119,13 +119,7 @@ const AllEvents = () => {
                                 </div>
                             </div>
                         </div>
-                        <footer className="sticky-footer bg-white">
-                            <div className="container my-auto">
-                                <div className="text-center my-auto">
-                                    <span>&copy; Your Company 2024</span>
-                                </div>
-                            </div>
-                        </footer>
+                        
                     </div>
                 </div>
                 <a className="scroll-to-top rounded" href="#page-top">
