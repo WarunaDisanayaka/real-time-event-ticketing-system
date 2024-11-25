@@ -1,26 +1,35 @@
-import React from 'react';
-import { Card, Button } from 'antd';
+import React from "react";
+import { Card, Button } from "antd";
+
 const { Meta } = Card;
 
-const TicketCard = () => {
+const TicketCard = ({ event }) => {
+    console.log("TicketCard props:", event); // Debug log for props
+
     return (
         <Card
             hoverable
             style={{
                 width: 240,
             }}
-            cover={<img alt="event" src="https://assets.mytickets.lk/images/events/ABBA%20-%20Arrival%20from%20Sweden/My-Tickets-web-1729217132982.jpg" />}
+            cover={<img alt="event" src={`http://localhost:3000/${event.image}`} />}
         >
-            <Meta title="ABBA - Arrival from Sweden" />
-
-            {/* Additional Details */}
+            <Meta title={event.name} />
             <div style={styles.ticketDetails}>
-                <p><strong>Date:</strong> 2024-11-20</p>
-                <p><strong>Location:</strong> Colombo, Sri Lanka</p>
-                <p><strong>Price:</strong> $50</p>
-
-                {/* Buy Button */}
-                <Button type="primary" href='/ticket-card-details' style={styles.buyButton}>
+                <p>
+                    <strong>Date:</strong> {new Date(event.startDate).toLocaleDateString()}
+                </p>
+                <p>
+                    <strong>Tickets Available:</strong> {event.ticketsAvailable}
+                </p>
+                <p>
+                    <strong>Price:</strong> ${event.price}
+                </p>
+                <Button
+                    type="primary"
+                    href="/ticket-card-details"
+                    style={styles.buyButton}
+                >
                     Buy Ticket
                 </Button>
             </div>
@@ -30,13 +39,13 @@ const TicketCard = () => {
 
 const styles = {
     ticketDetails: {
-        marginTop: '10px',
-        fontSize: '14px',
+        marginTop: "10px",
+        fontSize: "14px",
     },
     buyButton: {
-        marginTop: '10px',
-        width: '100%',
+        marginTop: "10px",
+        width: "100%",
     },
 };
 
-export default TicketCard;
+export default React.memo(TicketCard); // Add memoization for better performance
