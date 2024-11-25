@@ -39,7 +39,7 @@ const SideBar = () => {
             <li className="nav-item">
                 <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
-                    <i class="fas fa-file-import"></i><span>Events</span>
+                    <i class="fas fa-calendar-alt"></i><span>Events</span>
                 </a>
                 <div id="collapseFour" className="collapse" aria-labelledby="collapseThree" data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
