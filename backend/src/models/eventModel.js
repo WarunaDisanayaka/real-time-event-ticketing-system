@@ -3,8 +3,8 @@ const db = require("../config/db");
 const Event = {
   create: async (eventData) => {
     const sql = `
-      INSERT INTO events (name, totalTickets, ticketsAvailable, ticketReleaseRate, customerRetrievalRate, status, startDate, image, vendorId)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO events (name, totalTickets, ticketsAvailable, ticketReleaseRate, customerRetrievalRate, status, startDate, image, vendorId, price)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
@@ -17,6 +17,7 @@ const Event = {
       eventData.startDate,
       eventData.image, // Add the image URL or file path
       eventData.vendorId, // Add vendorId to the values
+      eventData.price, // Add the ticket price
     ];
 
     const [result] = await db.execute(sql, values); // Use db.execute to execute the query
