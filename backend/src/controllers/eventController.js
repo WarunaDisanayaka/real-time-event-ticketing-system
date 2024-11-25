@@ -21,6 +21,9 @@ exports.createEvent = async (req, res) => {
       return res.status(400).json({ error: "All fields are required." });
     }
 
+    // Check if an image file was uploaded
+    const image = req.file ? req.file.path : null;
+
     // Default ticketsAvailable to totalTickets initially
     const eventData = {
       name,
@@ -30,16 +33,16 @@ exports.createEvent = async (req, res) => {
       customerRetrievalRate,
       status: "pending", // Default status
       startDate,
+      image, // Include the image path
     };
 
     // Call the model to save the event in the database
     const result = await Event.create(eventData);
-    res
-      .status(201)
-      .json({
-        message: "Event created successfully!",
-        eventId: result.insertId,
-      });
+
+    res.status(201).json({
+      message: "Event created successfully!",
+      eventId: result.insertId,
+    });
   } catch (error) {
     console.error(error);
     res
