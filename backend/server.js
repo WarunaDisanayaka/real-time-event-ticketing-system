@@ -6,10 +6,19 @@ const eventRoutes = require("./src/routes/eventRoutes");
 const ticketRoutes = require("./src/routes/ticketRoutes");
 const cors = require("cors");
 const path = require("path");
+const http = require("http");
+const {
+  initializeWebSocketServer,
+  broadcastTicketUpdate,
+} = require("../backend/src/websocket/websocket");
 
 dotenv.config();
 const app = express();
 app.use(cors());
+const server = http.createServer(app);
+
+// Initialize WebSocket server
+initializeWebSocketServer(server);
 
 // Middleware
 app.use(bodyParser.json());
@@ -24,6 +33,6 @@ app.use("/api/ticket", ticketRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Server
+// Start the server only once
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

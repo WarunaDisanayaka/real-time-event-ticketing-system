@@ -2,6 +2,7 @@ const db = require("../config/db"); // Correct path to your db.js file
 const Event = require("../models/eventModel");
 const asyncLock = require("async-lock");
 const lock = new asyncLock(); // Initialize the lock
+const { broadcastTicketUpdate } = require("../../src/websocket/websocket");
 
 exports.createEvent = async (req, res) => {
   try {
@@ -312,6 +313,16 @@ exports.purchaseTickets = async (req, res) => {
         "UPDATE events SET ticketsAvailable = ticketsAvailable - ? WHERE id = ?",
         [ticketsRequested, eventId]
       );
+
+      // Fetch the updated ticket count
+      const [updatedEventRows] = await db.query(
+        "SELECT ticketsAvailable FROM events WHERE id = ?",
+        [eventId]
+      );
+      const updatedTicketsAvailable = updatedEventRows[0].ticketsAvailable;
+
+      // Broadcast the updated ticket count in real-time
+      broadcastTicketUpdate(eventId, updatedTicketsAvailable);
 
       // Log the purchase in a separate table for tracking
       await db.query(
