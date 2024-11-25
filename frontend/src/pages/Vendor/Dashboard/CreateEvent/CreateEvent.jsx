@@ -5,7 +5,6 @@ import TopBar from '../../../../components/Vendor/Dashboard/TopBar';
 const CreateEvent = () => {
     const [name, setName] = useState('');
     const [totalTickets, setTotalTickets] = useState('');
-    const [ticketsAvailable, setTicketsAvailable] = useState('');
     const [ticketReleaseRate, setTicketReleaseRate] = useState('');
     const [customerRetrievalRate, setCustomerRetrievalRate] = useState('');
     const [image, setImage] = useState(null); // For image file
@@ -26,7 +25,6 @@ const CreateEvent = () => {
         if (
             !name.trim() ||
             !totalTickets ||
-            !ticketsAvailable ||
             !ticketReleaseRate ||
             !customerRetrievalRate ||
             !image
@@ -44,7 +42,6 @@ const CreateEvent = () => {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('totalTickets', totalTickets);
-        formData.append('ticketsAvailable', ticketsAvailable);
         formData.append('ticketReleaseRate', ticketReleaseRate);
         formData.append('customerRetrievalRate', customerRetrievalRate);
         formData.append('image', image);
@@ -92,17 +89,6 @@ const CreateEvent = () => {
                                                             value={totalTickets}
                                                             onChange={(e) => setTotalTickets(e.target.value)}
                                                             placeholder="Enter Total Tickets"
-                                                        />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label htmlFor="ticketsAvailable">Tickets Available</label>
-                                                        <input
-                                                            type="number"
-                                                            className="form-control"
-                                                            id="ticketsAvailable"
-                                                            value={ticketsAvailable}
-                                                            onChange={(e) => setTicketsAvailable(e.target.value)}
-                                                            placeholder="Enter Tickets Available"
                                                         />
                                                     </div>
                                                     <div className="form-group">
