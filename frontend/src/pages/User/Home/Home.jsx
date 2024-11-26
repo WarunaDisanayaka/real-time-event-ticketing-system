@@ -88,12 +88,13 @@ const styles = {
     },
     ticketCardContainer: {
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", // Changed from auto-fit to auto-fill
         gap: "20px",
         marginTop: "20px",
         padding: "0 20px",
         justifyItems: "center",
     },
+
 };
 
 export default Home;

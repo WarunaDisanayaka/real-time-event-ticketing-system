@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Card, Button, InputNumber, notification } from "antd";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const TicketCardDetails = () => {
     const location = useLocation();
     const { event } = location.state || {};
     const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate(); // For navigation
 
     if (!event) {
         return <div>No event details available.</div>;
@@ -37,11 +39,14 @@ const TicketCardDetails = () => {
                 description: response.data.message,
                 placement: "topRight",
             });
+            navigate('/my-purchases');
+
         } catch (error) {
+            console.log()
             // Handle errors and notify the user
             notification.error({
                 message: "Purchase Failed",
-                description: error.response?.data?.message || "An error occurred during the purchase.",
+                description: error.response.data || "An error occurred during the purchase.",
                 placement: "topRight",
             });
         }

@@ -23,7 +23,7 @@ const CreateEvent = () => {
         const fetchVendorId = async () => {
             try {
                 // Simulate fetching vendorId (replace this with actual API or context logic)
-                const fetchedVendorId = '1'; // Replace with real logic
+                const fetchedVendorId = localStorage.getItem("id"); // Replace with real logic
                 setForm((prevForm) => ({ ...prevForm, vendorId: fetchedVendorId }));
             } catch (error) {
                 console.error('Failed to fetch vendor ID:', error);

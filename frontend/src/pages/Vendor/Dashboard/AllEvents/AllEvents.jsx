@@ -37,13 +37,39 @@ const AllEvents = () => {
     }, [vendorId]);
 
     // Toggle event active status
-    const toggleEventStatus = (id) => {
-        setEvents((prevEvents) =>
-            prevEvents.map((event) =>
-                event.id === id ? { ...event, isActive: !event.isActive } : event
-            )
-        );
+    const toggleEventStatus = async (id, releaseStatus) => {
+        const apiUrl = `http://localhost:3000/api/event/${releaseStatus === "in_progress" ? "stop-ticket-release" : "start-ticket-release"
+            }/${id}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST", // Assuming the API expects a POST request
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update event status. Please try again.");
+            }
+
+            // Optimistically update the event's releaseStatus on success
+            setEvents((prevEvents) =>
+                prevEvents.map((event) =>
+                    event.id === id
+                        ? {
+                            ...event,
+                            releaseStatus: event.releaseStatus === "in_progress" ? "stopped" : "in_progress",
+                        }
+                        : event
+                )
+            );
+        } catch (err) {
+            setError(err.message);
+        }
     };
+
+
 
     return (
         <div>
@@ -91,12 +117,20 @@ const AllEvents = () => {
                                                         </p>
                                                         <div className="mt-auto w-100 text-center">
                                                             <button
-                                                                className={`btn ${event.isActive ? "btn-danger" : "btn-success"} w-100`}
-                                                                onClick={() => toggleEventStatus(event.id)}
+                                                                className={`btn ${event.releaseStatus === "in_progress" ? "btn-danger" : "btn-success"} w-100 mb-2`}
+                                                                onClick={() => toggleEventStatus(event.id, event.releaseStatus)}
                                                             >
-                                                                {event.isActive ? "Stop Event" : "Start Event"}
+                                                                {event.releaseStatus === "in_progress" ? "Stop Event" : "Start Event"}
+                                                            </button>
+                                                            <button
+                                                                className="btn btn-outline-danger w-100"
+                                                                onClick={() => deleteEvent(event.id)}
+                                                            >
+                                                                Delete Event
                                                             </button>
                                                         </div>
+
+
                                                     </div>
                                                 </div>
                                             </div>
