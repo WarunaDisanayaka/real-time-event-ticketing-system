@@ -11,6 +11,7 @@ import AllEvents from './pages/Vendor/Dashboard/AllEvents/AllEvents';
 import CreateEvent from './pages/Vendor/Dashboard/CreateEvent/CreateEvent';
 import VendorHome from './pages/Vendor/Dashboard/Home/VendorHome';
 import VendorSignUp from './pages/Vendor/SignUp/VendorSignUp';
+import PurchaseHistory from './pages/User/PurchaseHistory/PurchaseHistory';
 
 const AppRoutes = () => {
     return (
@@ -55,6 +56,14 @@ const AppRoutes = () => {
                         element={
                             <PrivateRoute role="user">
                                 <TicketDetails />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/my-purchases"
+                        element={
+                            <PrivateRoute role="user">
+                                <PurchaseHistory />
                             </PrivateRoute>
                         }
                     />
