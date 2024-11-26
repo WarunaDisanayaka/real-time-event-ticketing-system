@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Card, Button, InputNumber } from "antd";
+import { Card, Button, InputNumber, notification } from "antd";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const TicketCardDetails = () => {
     const location = useLocation();
@@ -11,14 +12,39 @@ const TicketCardDetails = () => {
         return <div>No event details available.</div>;
     }
 
+    // Get the customer ID from local storage
+    const customerId = localStorage.getItem("id");
+
     // Handle quantity change
     const handleQuantityChange = (value) => {
         setQuantity(value || 1);
     };
 
     // Handle Buy Now action
-    const handleBuyNow = () => {
-        alert(`You have purchased ${quantity} ticket(s) for $${event.price * quantity}.`);
+    const handleBuyNow = async () => {
+        try {
+            const response = await axios.post(
+                `http://localhost:3000/api/event/events/${event.id}/purchase`,
+                {
+                    customerId: parseInt(customerId, 10), // Ensure customerId is a number
+                    ticketsRequested: quantity,
+                }
+            );
+
+            // Notify the user of success
+            notification.success({
+                message: "Purchase Successful",
+                description: response.data.message,
+                placement: "topRight",
+            });
+        } catch (error) {
+            // Handle errors and notify the user
+            notification.error({
+                message: "Purchase Failed",
+                description: error.response?.data?.message || "An error occurred during the purchase.",
+                placement: "topRight",
+            });
+        }
     };
 
     return (
@@ -78,73 +104,73 @@ const TicketCardDetails = () => {
 
 const styles = {
     checkoutContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        gap: '20px',
-        padding: '20px',
-        border: '1px solid #e8e8e8',
-        borderRadius: '8px',
-        backgroundColor: '#fff',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-        maxWidth: '800px',
-        margin: 'auto',
-        marginBottom: '10px'
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-start",
+        gap: "20px",
+        padding: "20px",
+        border: "1px solid #e8e8e8",
+        borderRadius: "8px",
+        backgroundColor: "#fff",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+        maxWidth: "800px",
+        margin: "auto",
+        marginBottom: "10px",
     },
     imageContainer: {
-        flex: '1',
+        flex: "1",
     },
     eventImage: {
-        width: '100%',
-        height: 'auto',
-        borderRadius: '8px',
+        width: "100%",
+        height: "auto",
+        borderRadius: "8px",
     },
     detailsContainer: {
-        flex: '2',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
+        flex: "2",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
     },
     eventTitle: {
-        fontSize: '24px',
-        fontWeight: 'bold',
-        marginBottom: '10px',
+        fontSize: "24px",
+        fontWeight: "bold",
+        marginBottom: "10px",
     },
     eventDescription: {
-        fontSize: '14px',
-        color: '#555',
-        lineHeight: '1.6',
+        fontSize: "14px",
+        color: "#555",
+        lineHeight: "1.6",
     },
     eventDetails: {
-        marginTop: '10px',
-        fontSize: '14px',
+        marginTop: "10px",
+        fontSize: "14px",
     },
     purchaseDetails: {
-        marginTop: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
+        marginTop: "20px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
     },
     quantityContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
     },
     quantityInput: {
-        width: '60px',
+        width: "60px",
     },
     totalPrice: {
-        fontSize: '16px',
-        fontWeight: 'bold',
+        fontSize: "16px",
+        fontWeight: "bold",
     },
     buyNowButton: {
-        marginTop: '20px',
-        width: '100%',
-        backgroundColor: '#1890ff',
-        color: '#fff',
-        fontWeight: 'bold',
-        borderRadius: '8px',
-        padding: '10px 0',
+        marginTop: "20px",
+        width: "100%",
+        backgroundColor: "#1890ff",
+        color: "#fff",
+        fontWeight: "bold",
+        borderRadius: "8px",
+        padding: "10px 0",
     },
 };
 
