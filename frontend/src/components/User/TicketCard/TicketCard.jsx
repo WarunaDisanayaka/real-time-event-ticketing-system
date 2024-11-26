@@ -1,11 +1,17 @@
 import React from "react";
 import { Card, Button } from "antd";
+import { useNavigate } from "react-router-dom";
+
 
 const { Meta } = Card;
 
 const TicketCard = ({ event }) => {
-    console.log("TicketCard props:", event); // Debug log for props
+    const navigate = useNavigate();
 
+    console.log("TicketCard props:", event); // Debug log for props
+    const handleBuyTicket = () => {
+        navigate("/ticket-card-details", { state: { event } });
+    };
     return (
         <Card
             hoverable
@@ -27,7 +33,7 @@ const TicketCard = ({ event }) => {
                 </p>
                 <Button
                     type="primary"
-                    href="/ticket-card-details"
+                    onClick={handleBuyTicket}
                     style={styles.buyButton}
                 >
                     Buy Ticket
