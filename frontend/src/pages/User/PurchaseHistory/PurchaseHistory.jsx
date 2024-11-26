@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from '../../../components/User/Footer/Footer';
 import Navigation from '../../../components/User/Navigation/Navigation';
+import PurchaseCard from '../../../components/User/PurchaseCard/PurchaseCard';
 import PurchaseHeader from '../../../components/User/PurchaseHeader/PurchaseHeader';
 
 const PurchaseHistory = () => {
@@ -11,8 +12,7 @@ const PurchaseHistory = () => {
                 <PurchaseHeader />
             </div>
             <div style={styles.ticketCardContainer}>
-                {/* <TicketCardDetails /> */}
-
+                <PurchaseCard />
             </div>
 
             <Footer />
