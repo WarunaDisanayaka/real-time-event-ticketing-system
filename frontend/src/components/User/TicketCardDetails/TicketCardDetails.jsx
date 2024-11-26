@@ -1,68 +1,69 @@
-import React, { useState } from 'react';
-import { Card, Button, InputNumber } from 'antd';
+import React, { useState } from "react";
+import { Card, Button, InputNumber } from "antd";
+import { useLocation } from "react-router-dom";
 
 const TicketCardDetails = () => {
-    const [quantity, setQuantity] = useState(1); // State to manage quantity
-    const ticketPrice = 50; // Price per ticket
+    const location = useLocation();
+    const { event } = location.state || {};
+    const [quantity, setQuantity] = useState(1);
+
+    if (!event) {
+        return <div>No event details available.</div>;
+    }
 
     // Handle quantity change
     const handleQuantityChange = (value) => {
-        setQuantity(value || 1); // Ensure the quantity is at least 1
+        setQuantity(value || 1);
     };
 
     // Handle Buy Now action
     const handleBuyNow = () => {
-        alert(`You have purchased ${quantity} ticket(s) for $${ticketPrice * quantity}.`);
+        alert(`You have purchased ${quantity} ticket(s) for $${event.price * quantity}.`);
     };
 
     return (
         <div style={styles.checkoutContainer}>
             <div style={styles.imageContainer}>
                 <img
-                    src="https://assets.mytickets.lk/images/events/ABBA%20-%20Arrival%20from%20Sweden/My-Tickets-web-1729217132982.jpg"
+                    src={`http://localhost:3000/${event.image}`}
                     alt="event"
                     style={styles.eventImage}
                 />
             </div>
             <div style={styles.detailsContainer}>
-                {/* Event Title and Description */}
-                <h2 style={styles.eventTitle}>ABBA - Arrival from Sweden</h2>
+                <h2 style={styles.eventTitle}>{event.name}</h2>
                 <p style={styles.eventDescription}>
-                    Enjoy a spectacular live concert featuring the timeless music of ABBA, performed by
-                    one of the world's most renowned tribute bands.
+                    {/* Optionally, add a description if your event model includes one */}
                 </p>
 
-                {/* Event Details */}
                 <div style={styles.eventDetails}>
                     <p>
-                        <strong>Date:</strong> 2024-11-20
+                        <strong>Date:</strong> {new Date(event.startDate).toLocaleDateString()}
                     </p>
                     <p>
-                        <strong>Location:</strong> Colombo, Sri Lanka
+                        <strong>Tickets Available:</strong> {event.ticketsAvailable}
                     </p>
                     <p>
-                        <strong>Price per ticket:</strong> $50
+                        <strong>Price per ticket:</strong> ${event.price}
                     </p>
                 </div>
 
-                {/* Quantity and Total Price */}
                 <div style={styles.purchaseDetails}>
                     <div style={styles.quantityContainer}>
                         <span>Quantity:</span>
                         <InputNumber
                             min={1}
-                            max={10}
+                            max={event.ticketsAvailable}
                             defaultValue={1}
                             onChange={handleQuantityChange}
                             style={styles.quantityInput}
                         />
                     </div>
                     <div style={styles.totalPrice}>
-                        <strong>Total Price:</strong> ${ticketPrice * quantity}
+                        <strong>Total Price:</strong> ${event.price * quantity}
                     </div>
                 </div>
 
-                {/* Buy Now Button */}
                 <Button
                     type="primary"
                     style={styles.buyNowButton}
@@ -88,7 +89,7 @@ const styles = {
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
         maxWidth: '800px',
         margin: 'auto',
-        marginBottom:'10px'
+        marginBottom: '10px'
     },
     imageContainer: {
         flex: '1',
