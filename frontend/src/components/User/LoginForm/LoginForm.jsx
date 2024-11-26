@@ -43,7 +43,7 @@ const LoginForm = () => {
                 // Store the token in localStorage (or any preferred storage)
                 localStorage.setItem('token', result.token);
                 localStorage.setItem('role', result.role);
-
+                localStorage.setItem('id', result.id);
 
                 // Redirect based on role
                 if (result.role === 'vendor') {
