@@ -20,7 +20,7 @@ const AllEvents = () => {
             try {
                 const response = await fetch(`http://localhost:3000/api/event/vendor/${vendorId}`);
                 if (!response.ok) {
-                    throw new Error("Failed to fetch events. Please try again later.");
+                    // throw new Error("Failed to fetch events. Please try again later.");
                 }
                 const data = await response.json();
                 console.log(data); // Log the response to ensure it contains the expected data
