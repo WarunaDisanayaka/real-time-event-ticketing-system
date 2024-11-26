@@ -378,3 +378,51 @@ exports.purchaseTickets = async (req, res) => {
     }
   });
 };
+
+exports.getCustomerPurchases = async (req, res) => {
+  const customerId = req.params.customerId;
+
+  if (!customerId) {
+    return res.status(400).send("Customer ID is required.");
+  }
+
+  try {
+    console.log(`Fetching purchase details for customer ID: ${customerId}`);
+
+    // Query to retrieve purchase details along with event information
+    const [rows] = await db.query(
+      `
+      SELECT 
+        tp.customerId,
+        tp.eventId,
+        tp.ticketsPurchased,
+        tp.totalPrice,
+        tp.purchaseTime,
+        e.name AS eventName,
+        e.startDate AS eventDate
+      FROM 
+        ticket_purchases tp
+      JOIN 
+        events e ON tp.eventId = e.id
+      WHERE 
+        tp.customerId = ?
+      ORDER BY 
+        tp.purchaseTime DESC
+      `,
+      [customerId]
+    );
+
+    if (rows.length === 0) {
+      console.log(`No purchase records found for customer ID: ${customerId}`);
+      return res.status(404).send("No purchase records found.");
+    }
+
+    res.send(rows);
+  } catch (error) {
+    console.error(
+      `Error while fetching purchase details for customer ID: ${customerId}`,
+      error
+    );
+    res.status(500).send("Error while retrieving purchase details.");
+  }
+};

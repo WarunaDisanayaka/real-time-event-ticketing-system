@@ -24,5 +24,9 @@ router.post("/events/:eventId/purchase", eventController.purchaseTickets);
 
 router.get("/events/:eventId", eventController.getEventById);
 
+router.get(
+  "/customers/:customerId/purchases",
+  eventController.getCustomerPurchases
+);
 
 module.exports = router;
