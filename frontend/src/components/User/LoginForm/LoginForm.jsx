@@ -49,7 +49,7 @@ const LoginForm = () => {
                 if (result.role === 'vendor') {
                     navigate('/vendor-home');
                 } else if (result.role === 'user') {
-                    navigate('/user-home');
+                    navigate('/');
                 } else {
                     message.warning('Unrecognized role.');
                 }
