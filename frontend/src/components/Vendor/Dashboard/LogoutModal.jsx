@@ -8,6 +8,8 @@ const LogoutModal = () => {
         // Clear localStorage (or any other storage used for authentication)
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        localStorage.removeItem('id');
+
 
         // Redirect to the login page
         window.location.href = '/login';

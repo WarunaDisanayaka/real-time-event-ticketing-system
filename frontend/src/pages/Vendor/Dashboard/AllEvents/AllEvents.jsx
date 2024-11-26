@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import LogoutModal from "../../../../components/Vendor/Dashboard/LogoutModal";
 import SideBar from "../../../../components/Vendor/Dashboard/SideBar";
 import TopBar from "../../../../components/Vendor/Dashboard/TopBar";
 // Uncomment and use AuthContext when ready
@@ -6,7 +7,7 @@ import TopBar from "../../../../components/Vendor/Dashboard/TopBar";
 
 const AllEvents = () => {
     // Replace with context logic once AuthContext is implemented
-    const vendorId = 1; // Example value, replace with `const { vendorId } = useContext(AuthContext);`
+    const vendorId = localStorage.getItem('id');;
 
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -116,6 +117,7 @@ const AllEvents = () => {
                     <i className="fas fa-angle-up"></i>
                 </a>
             </body>
+            <LogoutModal />
         </div>
     );
 };

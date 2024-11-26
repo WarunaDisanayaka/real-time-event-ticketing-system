@@ -90,8 +90,7 @@ const TopBar = () => {
                         {/*  <!-- Dropdown - User Information --> */}
                         <div
                             className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="userDropdown"
-                        >
+                            aria-labelledby="userDropdown">
                             <a
                                 className="dropdown-item"
                                 href="#"

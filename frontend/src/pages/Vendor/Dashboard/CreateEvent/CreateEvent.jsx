@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import LogoutModal from '../../../../components/Vendor/Dashboard/LogoutModal';
 import SideBar from '../../../../components/Vendor/Dashboard/SideBar';
 import TopBar from '../../../../components/Vendor/Dashboard/TopBar';
 
@@ -226,6 +227,8 @@ const CreateEvent = () => {
                     </div>
                 </div>
             </div>
+            <LogoutModal />
+
         </div>
     );
 };
