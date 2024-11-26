@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LogoutModal = () => {
-    const navigate = useNavigate(); // React Router's navigation hook
 
     const handleLogout = () => {
         // Clear localStorage (or any other storage used for authentication)

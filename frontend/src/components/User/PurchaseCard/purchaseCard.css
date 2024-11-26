@@ -1,0 +1,67 @@
+/* Container for list view */
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    /* background-color: #f9fafb; */
+    min-height: 100vh;
+}
+
+/* Ticket card styles */
+.ticket-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header */
+.ticket-header {
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    color: white;
+    padding: 16px;
+}
+
+.event-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Body */
+.ticket-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    gap: 16px;
+}
+
+.ticket-details p,
+.ticket-price p {
+    margin: 4px 0;
+    color: #4b5563;
+    font-size: 0.875rem;
+}
+
+/* Footer */
+.ticket-footer {
+    background-color: #f3f4f6;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.purchase-id {
+    font-weight: bold;
+}
+
+.thank-you {
+    text-align: right;
+}
