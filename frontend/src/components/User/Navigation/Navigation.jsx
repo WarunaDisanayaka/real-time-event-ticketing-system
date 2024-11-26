@@ -82,9 +82,11 @@ const Navigation = () => {
         <nav style={styles.header}>
             <div style={styles.container}>
                 <div style={styles.menuContainer}>
-                    <a style={styles.logo} href="#">
-                        {/* <Logo showText={true} /> */}
+                    <a style={styles.logo} href="/">
+                        <i className="fas fa-ticket-alt" style={{ marginRight: '8px' }}></i>
+                        <p style={{ display: 'inline', margin: 0 }}></p>
                     </a>
+
                     <Menu
                         style={styles.menu}
                         mode="horizontal"

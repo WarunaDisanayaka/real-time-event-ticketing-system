@@ -22,4 +22,7 @@ router.post("/stop-ticket-release/:eventId", eventController.stopTicketRelease);
 
 router.post("/events/:eventId/purchase", eventController.purchaseTickets);
 
+router.get("/events/:eventId", eventController.getEventById);
+
+
 module.exports = router;

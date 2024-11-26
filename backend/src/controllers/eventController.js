@@ -81,6 +81,34 @@ exports.getAllEvents = async (req, res) => {
   }
 };
 
+exports.getEventById = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+
+    // Validate the input
+    if (!eventId) {
+      return res.status(400).json({ error: "Event ID is required." });
+    }
+
+    // Query the database to retrieve the event information
+    const [event] = await db.execute("SELECT * FROM events WHERE id = ?", [
+      eventId,
+    ]);
+
+    if (event.length === 0) {
+      return res.status(404).json({ error: "Event not found." });
+    }
+
+    // Return the event data
+    res.status(200).json(event[0]); // Return the first (and only) row
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while retrieving the event." });
+  }
+};
+
 exports.getEventsByVendorId = async (req, res) => {
   try {
     const vendorId = req.params.vendorId; // Get vendorId from the request parameters
