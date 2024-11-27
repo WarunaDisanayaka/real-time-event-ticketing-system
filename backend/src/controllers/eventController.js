@@ -2,7 +2,12 @@ const db = require("../config/db"); // Correct path to your db.js file
 const Event = require("../models/eventModel");
 const asyncLock = require("async-lock");
 const lock = new asyncLock(); // Initialize the lock
-const { broadcastTicketUpdate } = require("../../src/websocket/websocket");
+const {
+  broadcastTicketUpdate,
+  broadcastTicketPurchasingUserCount,
+} = require("../../src/websocket/websocket");
+
+const ticketingPool = {}; // Structure to keep track of ticket release and purchase status for each event
 
 exports.createEvent = async (req, res) => {
   try {
@@ -46,7 +51,7 @@ exports.createEvent = async (req, res) => {
     const eventData = {
       name,
       totalTickets,
-      ticketsAvailable: totalTickets,
+      ticketsAvailable: 0,
       ticketReleaseRate,
       customerRetrievalRate,
       status: "pending", // Default status
@@ -182,7 +187,6 @@ exports.startTicketRelease = async (req, res) => {
         `Releasing ${ticketsToRelease} tickets for event: ${event.name}`
       );
 
-      // Start releasing tickets periodically
       releaseIntervalIds[eventId] = setInterval(async () => {
         // Fetch the updated event status to check if release is still allowed
         const [updatedEventRows] = await db.query(
@@ -210,9 +214,15 @@ exports.startTicketRelease = async (req, res) => {
             "UPDATE events SET ticketsAvailable = ticketsAvailable + ? WHERE id = ?",
             [ticketsToRelease, eventId]
           );
+
+          const updatedTicketsAvailable =
+            updatedEvent.ticketsAvailable + ticketsToRelease; // Calculate the new available tickets
           console.log(
             `${ticketsToRelease} tickets successfully released for event: ${updatedEvent.name}`
           );
+
+          // Broadcast the ticket update
+          broadcastTicketUpdate(eventId, updatedTicketsAvailable);
         } else {
           console.log("No tickets to release this interval.");
         }
@@ -283,6 +293,7 @@ exports.stopTicketRelease = async (req, res) => {
     }
   });
 };
+let activeUsers = {}; // Active users per event
 
 exports.purchaseTickets = async (req, res) => {
   const eventId = req.params.eventId;
@@ -333,6 +344,15 @@ exports.purchaseTickets = async (req, res) => {
         return res.status(400).send("No tickets left for this event.");
       }
 
+      // Increment the active user count for this event
+      if (!activeUsers[eventId]) {
+        activeUsers[eventId] = 0;
+      }
+      activeUsers[eventId]++;
+
+      // Broadcast the updated user count
+      broadcastTicketPurchasingUserCount(activeUsers[eventId]);
+
       // Calculate total price
       const totalPrice = ticketsRequested * event.price;
 
@@ -358,9 +378,18 @@ exports.purchaseTickets = async (req, res) => {
         [customerId, eventId, ticketsRequested, totalPrice]
       );
 
+      // After processing the ticket purchase, calculate total sales and broadcast
+      const [updatedSalesRows] = await db.query(
+        "SELECT SUM(ticketsPurchased) AS totalSales FROM ticket_purchases WHERE eventId = ?",
+        [eventId]
+      );
+      const totalSales = updatedSalesRows[0].totalSales;
+
       console.log(
         `Customer ${customerId} successfully purchased ${ticketsRequested} tickets for event: ${event.name}`
       );
+
+      activeUsers[eventId]--;
 
       res.send({
         message: `Successfully purchased ${ticketsRequested} tickets for event: ${event.name}`,

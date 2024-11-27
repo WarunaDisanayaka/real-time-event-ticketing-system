@@ -35,7 +35,23 @@ function broadcastTicketUpdate(eventId, ticketsAvailable) {
   });
 }
 
+// Broadcast real-time ticket purchasing user count to all connected clients
+function broadcastTicketPurchasingUserCount(userCount) {
+  const message = JSON.stringify({
+    userCount, // Current number of users purchasing tickets
+    date: new Date().toLocaleString(), // Timestamp for when the count was updated
+  });
+
+  // Send the message to all connected clients
+  clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(message);
+    }
+  });
+}
+
 module.exports = {
   initializeWebSocketServer,
   broadcastTicketUpdate,
+  broadcastTicketPurchasingUserCount,
 };
